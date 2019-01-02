@@ -1,7 +1,7 @@
 // src/components/ContactDetail.js
 
 import React, { Component } from 'react';
-import ContactActions from '../flux/actions';
+import ContactActions from '../flux/contacts.actions';
 import ContactStore from '../flux/contacts.store';
 
 class ContactDetailComponent extends Component {

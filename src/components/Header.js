@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link }  from 'react-router-dom';
+import AuthActions from '../flux/auth.actions';
 
 export class Header extends Component {
   constructor() {
@@ -14,18 +15,13 @@ export class Header extends Component {
     // Podemos llamar al método show de Auth0Lock, que es pasado como una
     // propiedad, para permitir que el usuario se autentique
     console.log("loging");
-    this.props.lock.show((err, profile, token) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      this.setState({authenticated: true});
-    });
+    this.props.lock.show();
   }
 
   logout = () => {
    // AuthActions.logUserOut();
-   console.log("loging");
+   console.log("logout");
+   AuthActions.logUserOut();
    this.setState({authenticated: false});
  }
 

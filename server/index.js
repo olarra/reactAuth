@@ -3,9 +3,25 @@
 const express = require('express');
 const app = express();
 const jwt = require('express-jwt');
+const jsonwebtoken = require('jsonwebtoken'); //install this, move to declarations
 const cors = require('cors');
 
 app.use(cors());
+
+const validateToken = (req, res, next) => {
+  console.log('validateToken')
+  const loginToken = req.headers.authorization;
+  console.log("loginToken",loginToken);
+  jsonwebtoken.verify(loginToken, new Buffer('kbs4bEt4wX9mBQOTc9lKJ17-350xwP1blEU1-Py-RylYUgCsI7bjXdPpUaQBc5M2', 'base64'), function(err, decoded) {
+      if(err) {
+          return res.status(401).send({message: 'invalid_token'});
+      }
+      //be aware of encoded data structure, simply console.log(decoded); to see what it contains
+      console.log("decoded", decoded);
+      next(); //`decoded.foo` has your value
+  });
+}
+
 
 // Este es el middleware de express-jwt configurado utilizando los parámetros
 // de su cuenta de Auth0

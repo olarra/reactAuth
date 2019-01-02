@@ -17,6 +17,24 @@ class App extends Component {
 
   componentWillMount() {
     this.lock = new Auth0Lock('rmbtYmfjYxMuXlzyWr-RGGETvczYadkw', 'olarra.eu.auth0.com');
+
+    // Listening for the authenticated event
+    this.lock.on("authenticated", authResult => {
+      console.log("authenticated =>", authResult);
+
+      console.log("authenticated =>", authResult.accessToken);
+      this.lock.getUserInfo(authResult.accessToken, function(error, profile) {
+                if (error) {
+                    // Handle error
+                    console.log(error);
+                    return;
+                }
+
+                localStorage.setItem('accessToken', authResult.accessToken);
+                localStorage.setItem('profile', JSON.stringify(profile));
+                localStorage.setItem('isAuthenticated', true);
+        });
+    });
   }
 
   render() {

@@ -1,6 +1,7 @@
 // src/utils/ContactsAPI.js
 
 import request from 'superagent/lib/client';
+import AuthStore from '../flux/auth.store';
 
 export default {
 
@@ -22,7 +23,9 @@ export default {
     return new Promise((resolve, reject) => {
       request
         .get(url)
+        .set('Authorization', 'Bearer ' + AuthStore.getJwt())
         .end((err, response) => {
+          console.log('err, response =>', { err , response });
           if (err) reject(err);
           resolve(JSON.parse(response.text));
         })

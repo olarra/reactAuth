@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { ListGroup } from 'react-bootstrap';
 // import { Link } from 'react-router';
-import ContactActions from '../flux/actions';
+import ContactActions from '../flux/contacts.actions';
 import ContactStore from '../flux/contacts.store';
 import ContactListItem from './ContactListItem';
 
